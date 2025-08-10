@@ -1,27 +1,18 @@
 'use client';
 
 import { menu } from '@/data/menu';
+import {
+  bottomSectionVariants,
+  menuContainerVariants,
+  menuItemVariants,
+  sidebarVariants,
+} from '@/lib/animation-variants';
 import { Icon } from '@iconify/react';
 import { motion, useAnimation } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-
-const sidebarVariants = {
-  closed: { x: '-100%' },
-  open: { x: 0 },
-};
-
-const menuContainerVariants = {
-  open: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
-  closed: {},
-};
-
-const menuItemVariants = {
-  open: { opacity: 1, x: 0 },
-  closed: { opacity: 0, x: -20 },
-};
 
 const Header = () => {
   const pathname = usePathname();
@@ -69,17 +60,17 @@ const Header = () => {
       <motion.nav
         initial={{ y: 0 }}
         animate={controls}
-        className={`z-[9999] ${
+        className={`z-50 ${
           isFixed ? 'fixed top-0 left-0 w-full px-40' : 'relative w-full'
         } bg-white/70 backdrop-blur-md py-3`}
       >
         <div className="mx-auto max-w-[1350px] px-5 sm:px-10 md:px-20  flex items-center justify-between">
           {/* Left Section */}
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-20">
+          <div className="flex items-center gap-4 sm:gap-8 lg:gap-10">
             {/* Sidebar Toggle (Mobile) */}
             <button
               aria-label="Open menu"
-              className="h-10 w-10 flex items-center justify-center bg-neutral-200 rounded-full sm:h-12 sm:w-12"
+              className="h-10 w-10  cursor-target flex items-center justify-center bg-neutral-200 rounded-full sm:h-12 sm:w-12"
               onClick={() => setIsSidebarOpen(true)}
               type="button"
             >
@@ -93,8 +84,8 @@ const Header = () => {
                   alt="Logo"
                   className="object-contain"
                   height={40}
-                  src="/assets/cx-logo-notext.png"
-                  width={100}
+                  src="/cx-logo.png"
+                  width={80}
                 />
               </Link>
             </div>
@@ -111,7 +102,7 @@ const Header = () => {
       {isSidebarOpen && (
         <motion.div
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/40 z-[9998]"
+          className="fixed inset-0 bg-black/50  z-[9998]"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
           onClick={() => setIsSidebarOpen(false)}
@@ -122,45 +113,78 @@ const Header = () => {
       {/* Sidebar */}
       <motion.aside
         animate={isSidebarOpen ? 'open' : 'closed'}
-        className="fixed top-0 left-0 z-[9999] h-full w-full backdrop-blur-sm p-6 shadow-xl"
+        className="fixed top-0 left-0 z-[60] h-full w-full  p-6  backdrop-blur-sm text-white flex flex-col justify-between"
         initial="closed"
         variants={sidebarVariants}
       >
-        {/* Sidebar Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Menu</h2>
-          <button
-            aria-label="Close menu"
-            onClick={() => setIsSidebarOpen(false)}
-            type="button"
+        {/* Top section */}
+        <div>
+          {/* Close button */}
+          <div className="group flex w-fit justify-between rounded-full p-3 cursor-pointer items-start mb-20">
+            <button
+              aria-label="Close menu"
+              onClick={() => setIsSidebarOpen(false)}
+              type="button"
+              className="group-hover:bg-black rounded-full p-3"
+            >
+              <Icon className="h-6 w-6 text-orange-500" icon="lucide:x" />
+            </button>
+          </div>
+          {/* Menu Links with numbers */}
+          <motion.div
+            animate={isSidebarOpen ? 'open' : 'closed'}
+            initial="closed"
+            variants={menuContainerVariants}
+            className="flex flex-col space-y-6"
           >
-            <Icon className="h-6 w-6" icon="lucide:x" />
-          </button>
+            {menu.map((m, i) => {
+              const isActive = pathname === m.href;
+              return (
+                <motion.div key={m.href} variants={menuItemVariants}>
+                  <Link
+                    href={m.href}
+                    onClick={() => setIsSidebarOpen(false)}
+                    className={`flex items-baseline space-x-4 group`}
+                  >
+                    <span className="text-sm text-gray-400">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span
+                      className={`text-3xl font-bold transition-colors ${
+                        isActive
+                          ? 'text-orange-500'
+                          : 'text-white group-hover:text-orange-500'
+                      }`}
+                    >
+                      {m.title}
+                    </span>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
 
-        {/* Sidebar Links */}
+        {/* Bottom contact section */}
         <motion.div
+          variants={bottomSectionVariants}
           animate={isSidebarOpen ? 'open' : 'closed'}
-          className="flex flex-col gap-4"
           initial="closed"
-          variants={menuContainerVariants}
+          className="grid grid-cols-2 gap-10 text-sm"
         >
-          {menu.map((m) => {
-            const isActive = pathname === m.href;
-            return (
-              <motion.div key={m.href} variants={menuItemVariants}>
-                <Link
-                  className={`block text-sm font-medium transition hover:text-[#3A69F5] ${
-                    isActive ? 'text-blue-500' : 'text-gray-800'
-                  }`}
-                  href={m.href}
-                  onClick={() => setIsSidebarOpen(false)}
-                >
-                  {m.title}
-                </Link>
-              </motion.div>
-            );
-          })}
+          <div>
+            <h3 className="font-semibold mb-2">Get In Touch</h3>
+            <p className="text-gray-400">
+              Djagad Land Singosari Kav 34, Kab Malang
+            </p>
+            <p className="text-gray-400">+62-821-3909-7937 Dirga Isman</p>
+            <p className="text-gray-400">dirga@uraga.id</p>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-2">Work Inquiries</h3>
+            <p className="text-gray-400">dirga@uraga.id</p>
+            <p className="text-gray-400">+62-821-3909-7937</p>
+          </div>
         </motion.div>
       </motion.aside>
     </>

@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import FloatingVerticalControls from '../../atoms/cutom/floating-control';
 import Header from '../Header';
+import Cursor from '../../atoms/cutom/custom-cursor';
 
 type Props = {
   children: ReactNode;
@@ -8,6 +9,7 @@ type Props = {
 const MainLayout: FC<Props> = ({ children }) => {
   return (
     <main className="relative max-w-screen overflow-x-hidden mx-40">
+      <Cursor />
       <FloatingVerticalControls />
 
       <Header />
