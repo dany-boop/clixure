@@ -61,7 +61,7 @@ const FloatingVerticalControls = () => {
       {/* Theme Switch */}
       <motion.button
         onClick={toggleTheme}
-        className="cursor-target relative w-20 h-10 bg-gray-200 dark:bg-gray-800 border rounded-full flex items-center px-1 rotate-90 cursor-pointer"
+        className="cursor-target relative w-20 h-10 bg-gray-200 dark:bg-neutral-900 border rounded-full flex items-center px-1 rotate-90 cursor-pointer"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -80,7 +80,7 @@ const FloatingVerticalControls = () => {
 
       {/* Scroll To Top with Progress */}
       <motion.div
-        className="cursor-target-big bg-white dark:bg-gray-800 flex flex-row-reverse items-center gap-5 mt-10 -rotate-90"
+        className="cursor-target-big  flex flex-row-reverse items-center gap-5 mt-10 -rotate-90"
         initial={false}
         animate={{
           opacity: isVisible ? 1 : 0,

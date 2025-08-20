@@ -62,7 +62,7 @@ const Header = () => {
         animate={controls}
         className={`z-50 ${
           isFixed ? 'fixed top-0 left-0 w-full px-40' : 'relative w-full'
-        } bg-white/70 backdrop-blur-md py-3`}
+        } bg-white/70 dark:bg-neutral-950/70 backdrop-blur-md py-3`}
       >
         <div className="mx-auto max-w-[1350px] px-5 sm:px-10 md:px-20  flex items-center justify-between">
           {/* Left Section */}
@@ -70,7 +70,7 @@ const Header = () => {
             {/* Sidebar Toggle (Mobile) */}
             <button
               aria-label="Open menu"
-              className="h-10 w-10  cursor-target flex items-center justify-center bg-neutral-200 rounded-full sm:h-12 sm:w-12"
+              className="h-10 w-10  cursor-target flex items-center justify-center bg-neutral-200 dark:bg-neutral-900 rounded-full sm:h-12 sm:w-12"
               onClick={() => setIsSidebarOpen(true)}
               type="button"
             >
