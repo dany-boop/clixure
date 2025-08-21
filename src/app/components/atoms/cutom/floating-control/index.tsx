@@ -57,7 +57,13 @@ const FloatingVerticalControls = () => {
   };
 
   return (
-    <div className="fixed top-1/2 left-0 transform -translate-y-1/2 z-30 flex flex-col items-center gap-20">
+    <div
+      className="
+      fixed z-30 flex flex-col items-center gap-10 lg:gap-20
+      left-0 bottom-5             /* 📱 Mobile: bottom-left */
+      md:top-1/2 md:-translate-y-1/2 md:left-0 md:bottom-auto /* 💻 Desktop: vertical center left */
+    "
+    >
       {/* Theme Switch */}
       <motion.button
         onClick={toggleTheme}
@@ -80,7 +86,7 @@ const FloatingVerticalControls = () => {
 
       {/* Scroll To Top with Progress */}
       <motion.div
-        className="cursor-target-big  flex flex-row-reverse items-center gap-5 mt-10 -rotate-90"
+        className="cursor-target-big flex flex-row-reverse items-center md:gap-5 lg:mt-10 -rotate-90"
         initial={false}
         animate={{
           opacity: isVisible ? 1 : 0,
@@ -128,10 +134,10 @@ const FloatingVerticalControls = () => {
           />
         </motion.button>
 
-        {/* Text (Gradient Fill Based on Progress) */}
+        {/* Text */}
         <motion.p
           onClick={scrollToTop}
-          className="ml-2 font-medium text-sm cursor-pointer select-none bg-clip-text text-transparent"
+          className="ml-2 font-medium text-sm cursor-pointer select-none bg-clip-text text-transparent hidden sm:block"
           style={{
             backgroundImage: `linear-gradient(to left, orange ${scrollProgress}%, black ${scrollProgress}%)`,
           }}

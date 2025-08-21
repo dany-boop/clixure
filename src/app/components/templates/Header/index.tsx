@@ -61,16 +61,20 @@ const Header = () => {
         initial={{ y: 0 }}
         animate={controls}
         className={`z-50 ${
-          isFixed ? 'fixed top-0 left-0 w-full px-40' : 'relative w-full'
+          isFixed ? 'fixed top-0 left-0 w-full' : 'relative w-full'
         } bg-white/70 dark:bg-neutral-950/70 backdrop-blur-md py-3`}
       >
-        <div className="mx-auto max-w-[1350px] px-5 sm:px-10 md:px-20  flex items-center justify-between">
+        <div
+          className={`mx-auto lg:max-w-[1350px] px-4 sm:px-10  ${
+            isFixed ? 'lg:px-36' : 'lg:px-20'
+          } flex items-center justify-between`}
+        >
           {/* Left Section */}
-          <div className="flex items-center gap-4 sm:gap-8 lg:gap-10">
-            {/* Sidebar Toggle (Mobile) */}
+          <div className="flex items-center gap-3 sm:gap-6 lg:gap-10">
+            {/* Sidebar Toggle (Mobile Only) */}
             <button
               aria-label="Open menu"
-              className="h-10 w-10  cursor-target flex items-center justify-center bg-neutral-200 dark:bg-neutral-900 rounded-full sm:h-12 sm:w-12"
+              className="cursor-target h-10 w-10 flex items-center justify-center bg-neutral-200 dark:bg-neutral-900 rounded-full sm:h-12 sm:w-12 "
               onClick={() => setIsSidebarOpen(true)}
               type="button"
             >
@@ -79,14 +83,25 @@ const Header = () => {
 
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link href="/" aria-label="Home">
-                <Image
-                  alt="Logo"
-                  className="object-contain"
-                  height={40}
-                  src="/cx-logo.png"
-                  width={80}
-                />
+              <Link
+                href="/"
+                aria-label="Home"
+                className="flex items-center gap-2"
+              >
+                <div className="relative w-10 h-10 md:w-14 md:h-14">
+                  <Image
+                    alt="Logo"
+                    src="/cx-logo.png"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col leading-none">
+                  <h1 className="text-orange-500 text-2xl font-semibold">
+                    clixure
+                  </h1>
+                  <p className="text-sm -mt-1">Digital</p>
+                </div>
               </Link>
             </div>
           </div>
@@ -102,7 +117,7 @@ const Header = () => {
       {isSidebarOpen && (
         <motion.div
           animate={{ opacity: 1 }}
-          className="fixed inset-0 bg-black/50  z-[9998]"
+          className="fixed inset-0 bg-black/50 z-[51]"
           exit={{ opacity: 0 }}
           initial={{ opacity: 0 }}
           onClick={() => setIsSidebarOpen(false)}
@@ -113,19 +128,18 @@ const Header = () => {
       {/* Sidebar */}
       <motion.aside
         animate={isSidebarOpen ? 'open' : 'closed'}
-        className="fixed top-0 left-0 z-[60] h-full w-full  p-6  backdrop-blur-sm text-white flex flex-col justify-between"
+        className="fixed top-0 left-0 z-[60] h-full w-full  p-6 backdrop-blur-sm text-white flex flex-col justify-between"
         initial="closed"
         variants={sidebarVariants}
       >
         {/* Top section */}
         <div>
           {/* Close button */}
-          <div className="group flex w-fit justify-between rounded-full p-3 cursor-pointer items-start mb-20">
+          <div className=" flex w-fit justify-between rounded-full p-3 cursor-pointer items-start mb-20">
             <button
-              aria-label="Close menu"
               onClick={() => setIsSidebarOpen(false)}
               type="button"
-              className="group-hover:bg-black rounded-full p-3"
+              className="cursor-target rounded-full p-3 hover:bg-neutral-100/30 dark:hover:bg-neutral-900"
             >
               <Icon className="h-6 w-6 text-orange-500" icon="lucide:x" />
             </button>
@@ -135,7 +149,7 @@ const Header = () => {
             animate={isSidebarOpen ? 'open' : 'closed'}
             initial="closed"
             variants={menuContainerVariants}
-            className="flex flex-col space-y-6"
+            className="flex flex-col space-y-6 ms-20"
           >
             {menu.map((m, i) => {
               const isActive = pathname === m.href;
