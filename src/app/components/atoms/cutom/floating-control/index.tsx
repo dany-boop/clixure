@@ -13,6 +13,11 @@ const FloatingVerticalControls = () => {
   const [isDark, setIsDark] = useState(false);
   const bottomOffset = 100;
 
+  const arcText = [
+    { text: 'Light', key: 'light' },
+    { text: 'Dark', key: 'dark' },
+  ];
+
   // Scroll progress and visibility logic
   useEffect(() => {
     const handleScroll = () => {
@@ -67,21 +72,75 @@ const FloatingVerticalControls = () => {
       {/* Theme Switch */}
       <motion.button
         onClick={toggleTheme}
-        className="cursor-target relative w-20 h-10 bg-gray-200 dark:bg-neutral-900 border rounded-full flex items-center px-1 rotate-90 cursor-pointer"
-        whileHover={{ scale: 1.05 }}
+        className=" relative flex items-center justify-center w-16 h-16 rounded-full "
+        whileHover={{ scale: 1.05, rotate: 5 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Toggle theme"
       >
+        {/* Center Icon */}
         <motion.div
-          className="absolute top-1 left-1 w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex items-center justify-center shadow-md"
-          animate={{ x: isDark ? 40 : 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+          className="cursor-target flex items-center justify-center w-8 h-8 rounded-full "
+          animate={{ rotate: isDark ? 360 : 0 }}
+          transition={{ duration: 0.5 }}
         >
           {isDark ? (
-            <Icon icon="radix-icons:moon" className="text-yellow-400" />
+            <Icon icon="radix-icons:moon" className="text-amber-500 text-lg" />
           ) : (
-            <Icon icon="solar:sun-line-duotone" className="text-yellow-500" />
+            <Icon
+              icon="solar:sun-line-duotone"
+              className="text-amber-500 text-lg"
+            />
           )}
         </motion.div>
+
+        {/* Left Arc Text - Both Light and Dark */}
+        <svg
+          viewBox="0 0 200 200"
+          className="absolute w-[140%] h-[140%] -rotate-180 -translate-x-1"
+        >
+          <path
+            id="arcLeft"
+            d="M 100, 100
+               m -50, 0
+               a 50,50 0 1,1 100,0
+               a 50,50 0 1,1 -100,0"
+            fill="transparent"
+          />
+
+          {/* Light Text with Animation */}
+          <motion.text
+            className="text-[1.5rem] uppercase tracking-widest"
+            style={{ fill: 'currentColor' }}
+            initial={false}
+            animate={{
+              opacity: !isDark ? 1 : 0.5,
+              fontWeight: !isDark ? 'bold' : 'normal',
+              x: !isDark ? 0 : -5,
+            }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <textPath href="#arcLeft" startOffset="35%" textAnchor="middle">
+              Light
+            </textPath>
+          </motion.text>
+
+          {/* Dark Text with Animation */}
+          <motion.text
+            className="text-[1.5rem] uppercase tracking-widest"
+            style={{ fill: 'currentColor' }}
+            initial={false}
+            animate={{
+              opacity: isDark ? 1 : 0.5,
+              fontWeight: isDark ? 'bold' : 'normal',
+              x: isDark ? 0 : 5,
+            }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <textPath href="#arcLeft" startOffset="65%" textAnchor="middle">
+              Dark
+            </textPath>
+          </motion.text>
+        </svg>
       </motion.button>
 
       {/* Scroll To Top with Progress */}

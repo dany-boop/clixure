@@ -62,11 +62,11 @@ const Header = () => {
         animate={controls}
         className={`z-50 ${
           isFixed ? 'fixed top-0 left-0 w-full' : 'relative w-full'
-        } bg-white/70 dark:bg-neutral-950/70 backdrop-blur-md py-3`}
+        } bg-white/50 dark:bg-neutral-950/70 backdrop-blur-md py-3`}
       >
         <div
-          className={`mx-auto lg:max-w-[1350px] px-4 sm:px-10  ${
-            isFixed ? 'lg:px-36' : 'lg:px-20'
+          className={`mx-auto lg:max-w-[1350px]  sm:px-10  ${
+            isFixed ? 'md:pl-20 md:pr-0' : 'md:pl-28 md:pr-0'
           } flex items-center justify-between`}
         >
           {/* Left Section */}
@@ -100,7 +100,7 @@ const Header = () => {
                   <h1 className="text-orange-500 text-2xl font-semibold">
                     clixure
                   </h1>
-                  <p className="text-sm -mt-1">Digital</p>
+                  <p className="text-sm -mt-1 font-semibold">Digital</p>
                 </div>
               </Link>
             </div>

@@ -62,7 +62,7 @@ const Cursor = () => {
     <>
       {/* Inner Dot (can grow on big target) */}
       <motion.div
-        className="hidden lg:block fixed top-0 left-0 w-4 h-4 rounded-full bg-amber-700 pointer-events-none z-[9999]"
+        className="hidden lg:block fixed top-0 left-0 w-4 h-4 rounded-full bg-amber-700 pointer-events-none z-[100]"
         style={{ x: cursorX, y: cursorY }}
         animate={{
           scale: hoveringBig ? 2 : 1, // Inner dot grows on big target
@@ -72,7 +72,7 @@ const Cursor = () => {
 
       {/* Outer Circle (slow shrink on normal target hover) */}
       <motion.div
-        className="hidden lg:block fixed -top-2 -left-2 w-8 h-8 rounded-full border border-amber-700 pointer-events-none z-[9998]"
+        className="hidden lg:block fixed -top-2 -left-2 w-8 h-8 rounded-full border border-amber-700 pointer-events-none z-[100]"
         style={{ x: trailX, y: trailY }}
         animate={{
           scale: hoveringTarget ? 0 : 1,

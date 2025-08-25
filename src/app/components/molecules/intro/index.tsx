@@ -18,12 +18,12 @@ export default function IntroAnimation({
       document.body.style.overflow = 'hidden';
       window.scrollTo(0, 0);
 
-      const dotTimer = setTimeout(() => setShowDot(true), 2500);
+      const dotTimer = setTimeout(() => setShowDot(true), 2000);
       const introTimer = setTimeout(() => {
         setShowIntro(false);
         setHasPlayed(true);
         document.body.style.overflow = 'auto'; // restore scroll
-      }, 6000);
+      }, 4500);
 
       return () => {
         clearTimeout(dotTimer);
@@ -88,6 +88,15 @@ export default function IntroAnimation({
                   )}
                 </motion.span>
               ))}
+              <motion.span
+                variants={letterVariant}
+                initial="hidden"
+                animate="visible"
+                custom={text.length}
+                className="text-amber-500"
+              >
+                .
+              </motion.span>
             </h1>
           </motion.div>
         )}

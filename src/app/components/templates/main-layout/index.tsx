@@ -10,7 +10,7 @@ type Props = {
 };
 const MainLayout: FC<Props> = ({ children }) => {
   return (
-    <main className="relative max-w-screen overflow-x-hidden lg:px-40">
+    <main className="relative max-w-screen overflow-x-hidden lg:pl-8 lg:pr-20">
       <Cursor />
       <FloatingVerticalControls />
 
