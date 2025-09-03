@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import MainLayout from './components/templates/main-layout';
 import CircularText from './components/atoms/cutom/rounded-text';
+import SectionIntro from './components/organisms/section-1';
 
 export default function Home() {
   const thirdRef = useRef<HTMLDivElement>(null);
@@ -99,8 +100,8 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-red-100 flex items-center justify-center">
-        <h1 className="text-4xl">1</h1>
+      <div className="min-h-fit ">
+        <SectionIntro />
       </div>
 
       {/* Wrap the target section in a container with ref */}

@@ -20,6 +20,7 @@ const Header = () => {
   const [scrollingDown, setScrollingDown] = useState(false);
   const [scrollThreshold, setScrollThreshold] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const controls = useAnimation();
 
   // Scroll animation logic
@@ -62,25 +63,15 @@ const Header = () => {
         animate={controls}
         className={`z-50 ${
           isFixed ? 'fixed top-0 left-0 w-full' : 'relative w-full'
-        } bg-white/50 dark:bg-neutral-950/70 backdrop-blur-md py-3`}
+        }  py-3`}
       >
         <div
           className={`mx-auto lg:max-w-[1350px]  sm:px-10  ${
-            isFixed ? 'md:pl-20 md:pr-0' : 'md:pl-28 md:pr-0'
+            isFixed ? ' md:pr-0' : ' md:pr-0'
           } flex items-center justify-between`}
         >
           {/* Left Section */}
           <div className="flex items-center gap-3 sm:gap-6 lg:gap-10">
-            {/* Sidebar Toggle (Mobile Only) */}
-            <button
-              aria-label="Open menu"
-              className="cursor-target h-10 w-10 flex items-center justify-center bg-neutral-200 dark:bg-neutral-900 rounded-full sm:h-12 sm:w-12 "
-              onClick={() => setIsSidebarOpen(true)}
-              type="button"
-            >
-              <Icon className="h-5 w-5 sm:h-6 sm:w-6" icon="ci:menu-alt-05" />
-            </button>
-
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link
@@ -107,9 +98,34 @@ const Header = () => {
           </div>
 
           {/* CTA Button */}
-          <button className="hidden sm:block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition">
-            Consult
-          </button>
+          <div className="flex cursor-target items-center  p-3 rounded-full bg-white/50 dark:bg-neutral-950/70 backdrop-blur-md">
+            {/* Animated container so text moves smoothly */}
+            <motion.h1
+              animate={{ marginRight: hovered ? 12 : 5 }} // mr-6 = 24px, mr-3 = 12px
+              className="font-semibold"
+            >
+              Menu
+            </motion.h1>
+
+            <motion.button
+              onHoverStart={() => setHovered(true)}
+              onHoverEnd={() => setHovered(false)}
+              initial={{ scale: 0.5 }}
+              whileHover={{ scale: 1 }}
+              onClick={() => setIsSidebarOpen(true)}
+              className="flex items-center justify-center rounded-full bg-orange-500 h-10 w-10"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0 }}
+                animate={
+                  hovered ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+                }
+                transition={{ duration: 0.3 }}
+              >
+                <Icon icon="ci:menu-alt-05" className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.button>
+          </div>
         </div>
       </motion.nav>
 

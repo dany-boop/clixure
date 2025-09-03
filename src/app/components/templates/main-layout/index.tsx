@@ -10,21 +10,14 @@ type Props = {
 };
 const MainLayout: FC<Props> = ({ children }) => {
   return (
-    <main className="relative max-w-screen overflow-x-hidden lg:pl-8 lg:pr-20">
+    <main className="relative max-w-screen overflow-x-hidden ">
       <Cursor />
       <FloatingVerticalControls />
 
       <Header />
-      {/* <CircularText
-        text="Digital • Clixure"
-        className="-top-10 -left-5 text-orange-500 hidden lg:block"
-      />
-      <CircularText
-        text="Digital • Clixure"
-        className="-bottom-10 -right-5 text-orange-500 hidden lg:block"
-      /> */}
-      <div className="z-10 lg:ml-16 w-full max-w-screen overflow-x-hidden">
-        <main className="min-h-screen px-10 pt-24">
+
+      <div className="z-10  w-full max-w-screen overflow-x-hidden">
+        <main className="min-h-screen px-10 ">
           <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
         </main>
         <footer>asdsa</footer>

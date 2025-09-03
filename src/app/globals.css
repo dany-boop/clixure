@@ -157,8 +157,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .cursor-highlight {
   border: 2px solid #f97316; 
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);
+  transition: border 0.1s ease;
+  /* box-shadow: 0 0 10px rgba(249, 115, 22, 0.4); */
 }
 
 ::selection {
